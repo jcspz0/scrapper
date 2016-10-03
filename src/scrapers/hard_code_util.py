@@ -213,13 +213,27 @@ def getNumeroTitular2(text):
 		return text.split()[1]
 	return None
 
+#codigo para obtener datos del articulo con regex. grupo  0=todo el articulo, 2=numero del articulo,
+# 3=si existe algun guion o el º , 4=la letra del articulo, 5= si termina en punto o coma el articulo
+def contenido_articulo(texto,grupo):
+	match=re.search(r'(A|a)rt\. (\d+)( |\º|-)*([a-zA-Z]{1})*(\.|\,)*', texto)
+	if match:
+		return match.group(grupo)
+	else:
+		return None		
+
 def getNumeroArticulo(text):	
 	if text is None :
 		return '0'	
-	if len(text.split()) > 1:		 
-		 return text.split()[1] 	 	
-	if len(text.split()) == 1:
-		return '0'
+	# if len(text.split()) > 1:		 
+	# 	 return text.split()[1] 	 	
+	# if len(text.split()) == 1:
+	# 	return '0'
+	cont = contenido_articulo(text,2)#mod
+	if cont is not None and cont != '':#mod
+		return cont#mod
+	else:#mod
+		return '0'	#mod
 
 def startEndConstitucion(text):	
 	if text is not None :
@@ -854,4 +868,4 @@ def build_url_absolute_MVP(url_base,url_relativa):
 	url_new_relativa=url_relativa_sin_retroceso(url_relativa)
 	return url_new_base+url_new_relativa
 
-		
+	

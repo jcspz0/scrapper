@@ -59,7 +59,9 @@ PRIMARY KEY (`id`),
 FOREIGN KEY (`id_legislacion`) REFERENCES `legislacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 FOREIGN KEY (`id_segmento`) REFERENCES `segmento` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
 INDEX `id_legislacion_fk` USING BTREE (`id_legislacion`),
-INDEX `id_segmento_fk` USING BTREE (`id_segmento`)
+INDEX `id_segmento_fk` USING BTREE (`id_segmento`),
+INDEX `codigo_ley` USING BTREE (`codigo_ley`),
+INDEX `alias` USING BTREE (`alias`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -111,7 +113,9 @@ CREATE TABLE `segmento` (
 PRIMARY KEY (`id`),
 FOREIGN KEY (`id_parent`) REFERENCES `segmento` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
 INDEX `id_parent` USING BTREE (`id_parent`),
-INDEX `id_ley` USING BTREE (`id_ley`)
+INDEX `id_ley` USING BTREE (`id_ley`),
+INDEX `identificador` USING BTREE (`identificador`),
+INDEX `contenido` USING BTREE (`contenido`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
