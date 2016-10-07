@@ -34,6 +34,18 @@ idnetificador_articulo = ''
 articulo_completo = ''
 id_parent_articulo = 0
 
+#variables para los grupos de articulos
+last_articule = ''
+actual_articule = ''
+number_article = 0
+
+
+def restartVar():
+	global last_articule,actual_articule,number_article
+	last_articule = ''
+	actual_articule = ''
+	number_article = 0
+
 def __separarTituloCompuesto(soup):
 	tags_a = soup.find_all(['a'])
 	tags_name = []
@@ -169,7 +181,7 @@ def __isTituloCompuesto(soup):
 
 ''' Metodo principal para cada parrafo (p) a procesar '''
 def __procesarParrafo(soup):
-	global ley_id, last_titulo_id, last_capitulo_id, last_seccion_id, last_subseccion_id, last_segmento_id, last_articulo_id, start_articles, end_of_code, last_titulo, last_capitulo, last_seccion, last_subseccion, last_articulo, articulo_completo, idnetificador_articulo, id_parent_articulo
+	global ley_id, last_titulo_id, last_capitulo_id, last_seccion_id, last_subseccion_id, last_segmento_id, last_articulo_id, start_articles, end_of_code, last_titulo, last_capitulo, last_seccion, last_subseccion, last_articulo, articulo_completo, idnetificador_articulo, id_parent_articulo, last_articule, number_article, actual_articule
 	if (__isTitulo(soup)):
 		if (__isTituloCompuesto(soup)):
 			resp = __separarTituloCompuesto(soup) # resp es una lista de partes, cada parte es un tag
@@ -227,9 +239,14 @@ def __procesarParrafo(soup):
 			if last_subseccion != '':
 				cad += '_subseccion' + last_subseccion
 				id_parent = last_subseccion_id
-			cad += '_articulo' + hard_code_util.getNumeroArticulo(soup.text)
-			if soup.find('strike') is not None:
-				 cad += '-'
+			# correccion para los subgrupos de articulos
+			actual_articule = hard_code_util.getNumeroArticulo(soup.text)
+			resultRepetead = hard_code_util.getArticuleUnderscoreGroup(actual_articule,last_articule,number_article)
+			last_articule = resultRepetead[1]
+			number_article = resultRepetead[2]
+			cad += '_articulo' + resultRepetead[0]
+			#if soup.find('strike') is not None:
+				 # cad += '-'
 			if articulo_completo != '':
 				dao.segmentoDAO.insert(articulo_completo, dao.segmentoDAO.TIPO_ARTICULO, ley_id, id_parent, idnetificador_articulo)
 				id_parent_articulo = id_parent
@@ -276,6 +293,7 @@ def procesarLegislacion(soup,url_ley,codigo_ley,size_page,alias):
 			soup_inicial=readPreambulo(soup)	
 		#titulo = soup.find('p', {'align': 'center'})
 		next = soup_inicial
+		restartVar()
 		while next is not None:
 			__procesarParrafo(next)
 			next = next.find_next('p')

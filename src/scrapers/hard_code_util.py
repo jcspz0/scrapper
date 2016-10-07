@@ -216,7 +216,7 @@ def getNumeroTitular2(text):
 #codigo para obtener datos del articulo con regex. grupo  0=todo el articulo, 2=numero del articulo,
 # 3=si existe algun guion o el º , 4=la letra del articulo, 5= si termina en punto o coma el articulo
 def contenido_articulo(texto,grupo):
-	match=re.search(r'(A|a)rt\. (\d+)( |\º|-)*([a-zA-Z]{1})*(\.|\,)*', texto)
+	match=re.search(r'(A|a)rt\.(\n|\s|\t)*(\d+)( |\º|-)*([a-zA-Z]{1})*(\.|\,)*', texto)
 	if match:
 		return match.group(grupo)
 	else:
@@ -229,7 +229,7 @@ def getNumeroArticulo(text):
 	# 	 return text.split()[1] 	 	
 	# if len(text.split()) == 1:
 	# 	return '0'
-	cont = contenido_articulo(text,2)#mod
+	cont = contenido_articulo(text,3)#mod
 	if cont is not None and cont != '':#mod
 		return cont#mod
 	else:#mod
@@ -608,10 +608,21 @@ def get_clean_article(textArt):
 		return None			
 
 			
-
+def stringNotNoneOrEmpty(cadena):
+	if cadena is not None and cadena != '':
+		return True
+	return False
 		
-
-
+def getArticuleUnderscoreGroup(actual_articule,last_articule,number_article):
+	if not stringNotNoneOrEmpty(actual_articule):
+		return [None,last_articule,number_article]# no recibio bien el articulo actual
+	if last_articule == '' or actual_articule != last_articule:
+		return [actual_articule,actual_articule,1]# retorna el mismo articulo porque aun no ha encontrado otro articulo o es un nuevo articulo
+	if actual_articule == last_articule:
+		number_article = number_article + 1
+		new_articule = actual_articule+'-'+str(number_article)
+		last_articule = actual_articule
+		return [new_articule,last_articule,number_article]
 
 
 def number_repeated(art_act,art_ant,padre_art_ant,indice_art):

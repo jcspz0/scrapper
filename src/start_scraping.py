@@ -13,5 +13,5 @@ def normalizar():
 ##METODO INICIADOR DEL SCRAPING
 def start():
 	load_url.begin_loadUrl()
-	normalizar()
+	##normalizar()
 start()	

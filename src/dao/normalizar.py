@@ -17,7 +17,4 @@ def normalizacion():
 		"""
 	resp = db.cursor.execute(query)
 	db.connection.commit()
-	if resp == 1:
-		print 'se termino de normalizar correctamente'
-	else:
-		print 'hubo algun problema con la normalizacion'
+	
