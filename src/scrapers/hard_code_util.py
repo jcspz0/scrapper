@@ -216,7 +216,7 @@ def getNumeroTitular2(text):
 #codigo para obtener datos del articulo con regex. grupo  0=todo el articulo, 2=numero del articulo,
 # 3=si existe algun guion o el º , 4=la letra del articulo, 5= si termina en punto o coma el articulo
 def contenido_articulo(texto,grupo):
-	match=re.search(r'(A|a)rt\.(\n|\s|\t)*(\d+)( |\º|-)*([a-zA-Z]{1})*(\.|\,)*', texto)
+	match=re.search(r'(A|a)rt\.(\n|\s|\t|&nbsp;)*(\d+)( |\º|-)*([a-zA-Z]{1})*(\.|\,)*', texto)
 	if match:
 		return match.group(grupo)
 	else:

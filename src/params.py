@@ -10,7 +10,7 @@ first_scraping=False # True=reanudamiento en la legislacion que se quedo
 ########## parametros base de datos ##################
 db_host = 'localhost'
 db_port = 3306
-db_name = 'decoreba_db_prueba'
+db_name = 'decoreba_db2'
 db_username = 'root'
 db_password =  ''
 
