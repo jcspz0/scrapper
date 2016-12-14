@@ -284,7 +284,8 @@ def begin_loadUrl():
 			elif tipoScraper == 'UN': #es de tipo unica ley				
 				if cantUrl[0] == 0:
 					params.url=legis[1]
-					scraper.iniciarScraping(params.url)
+					params.prefix=legis[5]
+					scraper.iniciarScraping(params.url,params.prefix)
 					dao.leyDAO.set_nroUrl_level_1(legis[0],1)				
 	else: #si no tiene len()>0 mensaje cargue legislaciones
 		print 'INSERTE LEGISLACIONES'

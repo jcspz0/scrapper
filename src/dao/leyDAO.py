@@ -184,7 +184,7 @@ def get_legislaciones():
 	try:
 		db = Database()
 		query = """
-			SELECT id,url,cant_url_lv1,cant_url_lv2,tipo_scrap FROM legislacion			
+			SELECT id,url,cant_url_lv1,cant_url_lv2,tipo_scrap,tipo FROM legislacion			
 			"""
 		db.cursor.execute(query)		
 		db.connection.commit()	

@@ -281,7 +281,8 @@ def get_codigoLey_url(url_ley,id_tabl_legis):
 			return 'DEL'+encode_cod_ley_excep(ley_titu)
 		elif id_tabl_legis == 'DL':	
 			return 'DL'+encode_cod_ley_excep(ley_titu)
-		return ley_titu
+		#return ley_titu
+		return id_tabl_legis+encode_cod_ley_excep(ley_titu)
 	return 'url vacia'	
 
 def remove_point(ley_titu):

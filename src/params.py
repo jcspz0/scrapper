@@ -4,13 +4,14 @@
 ############ parametros ley a scrapear ################
 url=''
 url_leg=''
+prefix=''
 #---------------------------------------------------------------------
 first_scraping=False # True=reanudamiento en la legislacion que se quedo 
 					 # False= Verificacion de todos los niveles
 ########## parametros base de datos ##################
 db_host = 'localhost'
 db_port = 3306
-db_name = 'decoreba_db2'
+db_name = 'decoreba_db'
 db_username = 'root'
 db_password =  ''
 
